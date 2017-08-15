@@ -3,11 +3,9 @@ import cards.*;
 public class ChapterExcercises {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		//DiceGame();
 		//Statistics();
 		BlackJackGame();
-
 	}
 	public static void BlackJackGame()
 	{
