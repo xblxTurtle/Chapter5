@@ -31,4 +31,31 @@ public class BlackJackHand extends Hand{
 		}
 		return sum;
 	}
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		for(Card card:cards)
+		{
+			sb.append(card.toString());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	public String toStringDealer()
+	{
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i< cards.size();i++)
+		{
+			if (i==0)
+			{
+				sb.append("Card is hidden \n");
+			}
+			else
+			{
+				sb.append(cards.get(i).toString());
+				sb.append("\n");
+			}
+		}
+		return sb.toString();
+	}
 }

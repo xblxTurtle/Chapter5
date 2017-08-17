@@ -5,11 +5,84 @@ public class ChapterExcercises {
 	public static void main(String[] args) {
 		//DiceGame();
 		//Statistics();
-		BlackJackGame();
+		//BlackJackGame();
+		BlackJackFullGame();
+	}
+	public static void BlackJackFullGame()
+	{
+		BlackJackHand userHand = new BlackJackHand(), dealerHand = new BlackJackHand();
+		Deck deck = new Deck();
+		char input;
+		System.out.println("Welcome to the game of BlackJack !!!");
+		System.out.println("Initial deal. ");
+		userHand.AddCard(deck.DealCard());
+		userHand.AddCard(deck.DealCard());
+		dealerHand.AddCard(deck.DealCard());
+		dealerHand.AddCard(deck.DealCard());
+		System.out.println("You have :\n" + userHand.toString());
+		System.out.println("Your BlackJack value: " + Integer.toString(userHand.getBlackjackValue()));
+		System.out.println("Dealer has:\n" + dealerHand.toStringDealer());
+		if (dealerHand.getBlackjackValue() == 21)
+		{
+			System.out.println("Dealer won. Thank you for playing.");
+			return;
+		}
+		if (userHand.getBlackjackValue() == 21)
+		{
+			System.out.println("You won! Thank you for playing.");
+			return;
+		}
+		
+		System.out.println("Do you want to take another card? (press any key to continue and \"0\" to stop)");
+		input = TextIO.getAnyChar(); 
+		while (input != '0')
+		{
+			Card card =  deck.DealCard();
+			userHand.AddCard(card);
+			System.out.println("Your new card is :\n" + card.toString()); 
+			System.out.println("Your BlackJack value: " + Integer.toString(userHand.getBlackjackValue()));
+			if (userHand.getBlackjackValue() > 21)
+			{
+				System.out.println("Dealer won. Thank you for playing.");
+				return;
+			}
+			System.out.println("Do you want to take another card? (press any key to continue and \"0\" to stop)");
+			input = TextIO.getAnyChar();
+		}
+		
+		System.out.println("Dealer's hand:\n"+ dealerHand.toString());
+		System.out.println("Dealer's BlackJack value: " + Integer.toString(dealerHand.getBlackjackValue()));
+		System.out.println("Dealer takes.");
+		
+		while (dealerHand.getBlackjackValue()<=16)
+		{
+			Card card =  deck.DealCard();
+			dealerHand.AddCard(card);
+			System.out.println("Dealer's new card is :\n" + card.toString());
+			
+			if (dealerHand.getBlackjackValue() > 21)
+			{
+				System.out.println("Dealer's BlackJack value: " + Integer.toString(dealerHand.getBlackjackValue()));
+				System.out.println("You won. Thank you for playing.");
+				return;
+			}
+			if (dealerHand.getBlackjackValue() > userHand.getBlackjackValue())
+			{
+				System.out.println("Dealer's BlackJack value: " + Integer.toString(dealerHand.getBlackjackValue()));
+				System.out.println("Dealer won. Thank you for playing.");
+				return;
+			}
+		}
+		System.out.println("Dealer's BlackJack value: " + Integer.toString(dealerHand.getBlackjackValue()));
+		if (dealerHand.getBlackjackValue() >= userHand.getBlackjackValue())
+		{
+			System.out.println("Dealer won. Thank you for playing.");
+		}
+		else System.out.println("You won. Thank you for playing.");
 	}
 	public static void BlackJackGame()
 	{
-		boolean continueGame = true;
+		boolean continueGame = true;	
 		System.out.println("Welcome to the game of BlackJack with computer:");
 		
 		while (continueGame)
