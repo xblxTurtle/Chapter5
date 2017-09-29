@@ -1,4 +1,6 @@
 import cards.*;
+import java.util.*;
+import java.io.*;
 
 public class ChapterExcercises {
 
@@ -6,7 +8,67 @@ public class ChapterExcercises {
 		//DiceGame();
 		//Statistics();
 		//BlackJackGame();
-		BlackJackFullGame();
+		//BlackJackFullGame();
+		testSerializationIntoFile();
+	}
+	public static void testSerializationIntoFile()
+	{
+		int inp = -1; 
+		System.out.println("Do you want to load previously stored object or save one? (0 - load, 1 - save)");
+		try (Scanner scanner = new Scanner(System.in))
+		{
+			try 
+			{
+				inp = scanner.nextInt();
+			}
+			catch(Exception ex)
+			{
+				System.out.printf("Exiting with an Exception : %s", ex.toString());
+				return;
+			}
+			if (inp == 1) StoreObject(); else if (inp == 0) LoadObject();
+		}
+	}
+	public static void StoreObject()
+	{
+		String str = "";
+		int number = 0;
+		try (Scanner scan = new Scanner(System.in))
+		{
+			System.out.println("Enter string:");
+			str = scan.next();
+			System.out.println("Enter number:");
+			number = scan.nextInt();
+		}
+		catch(Exception ex)
+		{
+			System.out.printf("Exiting with an exception: %s", ex.toString());
+		}
+		StorageObject obj = new StorageObject(number,str);
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("StoredObject.txt")))
+		{
+			out.writeObject(obj);
+		}
+		catch(Exception ex)
+		{
+			System.out.printf("Exiting with an exception: %s", ex.toString());
+			return;
+		}
+		
+	}
+	public static void LoadObject()
+	{
+		StorageObject obj;
+		try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream("StoredObject.txt")))
+		{
+			obj = (StorageObject)stream.readObject();
+		}
+		catch (Exception ex)
+		{
+			System.out.printf("Exiting with an exception: %s", ex.toString());
+			return;
+		}
+		System.out.printf("Loaded object : %s", obj.toString());
 	}
 	public static void BlackJackFullGame()
 	{
