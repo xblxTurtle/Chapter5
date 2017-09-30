@@ -1,6 +1,7 @@
 import cards.*;
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
 
 public class ChapterExcercises {
 
@@ -9,8 +10,55 @@ public class ChapterExcercises {
 		//Statistics();
 		//BlackJackGame();
 		//BlackJackFullGame();
-		testSerializationIntoFile();
+		//testSerializationIntoFile();
+		//testFileDataReadWrite();
 	}
+	public static void testFileDataReadWrite()
+	{
+		JFileChooser dialog = new JFileChooser();
+		dialog.setDialogTitle("Select file to load data from.");
+		if (dialog.showOpenDialog(null) != JFileChooser.APPROVE_OPTION)
+		{
+			System.out.printf("File selection exited with an error. Terminating.");
+			return;
+		}
+		Stack<Integer> stack = new Stack<Integer>();
+		try (Scanner scan = new Scanner(dialog.getSelectedFile()))
+		{
+			int value;
+			while (scan.hasNext())
+			{
+				value = scan.nextInt();
+				stack.push(value);
+			}
+		}
+		catch (Exception ex)
+		{
+			System.out.printf("Exiting with an exception during reading from file: %s \n", ex.toString());
+			return;
+		}
+		
+		dialog.setDialogTitle("Select file to save data to.");
+		if (dialog.showSaveDialog(null)!= JFileChooser.APPROVE_OPTION)
+		{
+			System.out.printf("File selection exited with an error. Terminating.");
+			return;
+		}
+		try (PrintWriter writer = new PrintWriter(dialog.getSelectedFile()))
+		{
+			while(!stack.isEmpty())
+			{
+				writer.println(Integer.toString(stack.pop()));
+			}
+			writer.flush();
+		}
+		catch(Exception ex)
+		{
+			System.out.printf("Exiting with an exception during writing to file: %s \n", ex.toString());
+			return;
+		}
+	}
+	
 	public static void testSerializationIntoFile()
 	{
 		int inp = -1; 
