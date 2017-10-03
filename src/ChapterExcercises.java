@@ -12,6 +12,27 @@ public class ChapterExcercises {
 		//BlackJackFullGame();
 		//testSerializationIntoFile();
 		//testFileDataReadWrite();
+		long starttime = System.currentTimeMillis();
+		PrimeNumbersTest(300000);
+		long endtime= System.currentTimeMillis();
+		System.out.println("Running time: "+Double.toString((double)(endtime-starttime)/1000));
+	}
+	public static void PrimeNumbersTest(int num)
+	{
+		for (int i=3;i<num;i++)
+		{
+			boolean prime = true;
+			for (int k=2;k<i;k++)
+			{
+				if ((i%k)==0)
+				{
+					prime = false;
+					break;
+				}
+			}
+			//if (prime)
+			//	System.out.println(i);
+		}
 	}
 	public static void testFileDataReadWrite()
 	{

@@ -3,3 +3,12 @@
 /StatCalc.class
 /TextIO.class
 /StorageObject.class
+/CopyFile.class
+/MyThread.class
+/NotifyExample$status.class
+/NotifyExample.class
+/NotifyableThread.class
+/ParrallelExample.class
+/Runner.class
+/SimpleClient.class
+/SimpleServer.class
